@@ -1,3 +1,9 @@
+#include<iostream>
+#include<string>
+#include<algorithm>
+#include<functional>
+#include<vector>
+using namespace std;
 class Solution {
 public:
 	int maxSatisfaction(vector<int>& satisfaction) {
