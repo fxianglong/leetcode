@@ -1,0 +1,81 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> pathSum(TreeNode* root, int sum) {
+        // vector<vector<int>> ans;
+        // if(root==nullptr) return ans;
+        // vector<int> ret;
+        // stack<TreeNode*> stk;TreeNode* prev=nullptr;
+        // while(root||!stk.empty())
+        // {
+        //     while(root){
+        //         stk.push(root);
+        //         sum-=root->val;
+        //         ret.push_back(root->val);
+        //         root=root->left;
+        //     }
+        //     root=stk.top();
+        //     if(!root->left&&!root->right&&(sum==0))
+        //     {
+        //         ans.push_back(ret);
+        //     }
+        //     if(!root->right||root->right==prev)
+        //     {
+        //         stk.pop();
+        //         sum+=root->val;
+        //         ret.pop_back();
+        //         prev=root;
+        //         root=nullptr;
+        //     }
+        //     else
+        //         root=root->right;
+        // }
+        // return ans;
+
+
+        path.clear();
+        res.clear();
+
+        if(root == nullptr){
+            return res;
+        }
+
+        path.push_back(root->val);
+        dfs(root, sum - root->val);
+        path.pop_back();
+        return res;
+    }
+
+private:
+    vector<int> path;
+    vector<vector<int>> res;
+
+    void dfs(TreeNode* root, int sum)
+    {
+        if(root->left == nullptr && root->right == nullptr){
+            if(sum == 0){
+                res.push_back(path);
+            }
+            return;
+        }
+
+        if(root->left != nullptr){
+            path.push_back(root->left->val);
+            dfs(root->left, sum-root->left->val);
+            path.pop_back();
+        }
+        if(root->right != nullptr){
+            path.push_back(root->right->val);
+            dfs(root->right, sum-root->right->val);
+            path.pop_back();
+        }
+    }
+};
